@@ -6,8 +6,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  handleGetMain(): string {
-    return `available: /plans`;
+  handleGetMain() {
+    // return `available: /plans`;
   }
 
 }
