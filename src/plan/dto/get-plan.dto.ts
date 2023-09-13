@@ -31,6 +31,14 @@ export class GetPlanDto {
     discounted_price: number;
     parent_carrier: string;
     addition_call: string;
+    data_price: number;
+    call_price: number;
+    video_price: number;
+    SMS_price: number;
+    LMS_price: number;
+    MMS_text_price: number;
+    MMS_image_price: number;
+    MMS_video_price: number;
 
     constructor(partial: Partial<GetPlanDto>) {
         Object.assign(this, partial);

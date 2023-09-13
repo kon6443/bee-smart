@@ -11,12 +11,11 @@ export class PlanController {
 
     @Get()
     // async handleGetPlans(@Query('page') page = 1): Promise<{ pageObject: PageDto, plans: GetThreadDto[]}> {
-    async handleGetPlans(@Query('page') page = 1): Promise<any> {
+    async handleGetPlans(@Query('page') page = 1, @Query('items-per-page') itemsPerPage = 50): Promise<any> {
         try {
-            const pageObject: PageDto = await this.planService.getPageObject(page);
+            const pageObject: PageDto = await this.planService.getPageObject(page, itemsPerPage);
             console.log(pageObject);
             const plans: GetPlanDto[] = await this.planService.getPlans(pageObject);
-
             return { pageObject, plans };
         } catch(err) {
             throw new Error(err);
@@ -24,15 +23,27 @@ export class PlanController {
     }
 
     @Get(':id')
-    async handleGetDetail(@Param('id') id): Promise<{additional_service: any, plan: GetPlanDto }> {
+    async handleGetDetail(@Param('id') id): Promise<{ numberOfUser: number, additional_service: any, plan: GetPlanDto }> {
         try {
             const plan: GetPlanDto = await this.planService.getDetail(id);
             const additional_service = this.planService.distinguishSupportive(plan);
-            return { additional_service, plan };
+            const numberOfUser = this.planService.getRandomNumber(10000, 50000);
+            return { numberOfUser, additional_service, plan };
         } catch(err) {
             throw new Error(err);
         }
     }
 
+    @Get('admin/insertion')
+    async handlePostPlans(@Query('password') password) {
+        try {
+            if(password!=999999) return `Invalid request.`;
+            const plans = await this.planService.getJsonObject();
+            const res = this.planService.insertPlans(plans);
+            return res;
+        } catch(err) {
+            throw new Error(err);
+        }
+    }
 
 }

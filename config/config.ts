@@ -15,11 +15,9 @@ export const config = {
         PASSWORD: process.env.MYSQL_PASSWORD,
         DATABASE: process.env.MYSQL_DATABASE,
         ROOT_PASSWORD: process.env.MYSQL_ROOT_PASSWORD
-    },
-
-    JWT: {
-        SECRET: process.env.JWT_SECRET
     }
 
 };
+
+console.log(`config: ${config}`);
 
