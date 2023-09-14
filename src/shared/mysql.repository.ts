@@ -12,6 +12,7 @@ export class MySQLRepository {
 
     constructor() {
         console.log('MySQL has been connected...');
+
         this.pool = createPool({
             connectionLimit: 10,
             host: config.MYSQL.HOST,
@@ -20,6 +21,7 @@ export class MySQLRepository {
             password: config.MYSQL.PASSWORD,
             database: config.MYSQL.DATABASE 
         });
+
     }
 
     async executeQuery(sql: string, values?: any) {

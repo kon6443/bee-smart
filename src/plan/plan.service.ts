@@ -45,7 +45,7 @@ export class PlanService {
     }
 
     async getNumberOfPlans() {
-        const sql = `SELECT COUNT(plan_id) AS num FROM Plans`;
+        const sql = `SELECT COUNT(plan_id) AS num FROM Plans;`;
         const [ numberOfPlans ] = await this.repositoryInstance.executeQuery(sql);
         return numberOfPlans.num;
     }

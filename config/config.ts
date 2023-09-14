@@ -19,5 +19,7 @@ export const config = {
 
 };
 
-console.log(`config: ${config}`);
+// console.log(`config: ${config}`);
+// console.log(`process.env: ${process.env}`);
+// console.log(`process.env.MYSQL_HOST: ${process.env.MYSQL_HOST}`);
 

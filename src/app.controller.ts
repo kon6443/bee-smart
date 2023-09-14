@@ -7,7 +7,7 @@ export class AppController {
 
   @Get()
   handleGetMain() {
-    // return `available: /plans`;
+    return `this is main.`;
   }
 
 }

@@ -1,5 +1,4 @@
 import { Req, Controller, Get, Param, Query, ParseIntPipe } from '@nestjs/common';
-// import { Request } from 'express';
 import { PlanService } from './plan.service';
 
 import { GetPlanDto } from './dto/get-plan.dto';
@@ -10,11 +9,9 @@ export class PlanController {
     constructor(private readonly planService: PlanService) {}
 
     @Get()
-    // async handleGetPlans(@Query('page') page = 1): Promise<{ pageObject: PageDto, plans: GetThreadDto[]}> {
     async handleGetPlans(@Query('page') page = 1, @Query('items-per-page') itemsPerPage = 50): Promise<any> {
         try {
             const pageObject: PageDto = await this.planService.getPageObject(page, itemsPerPage);
-            console.log(pageObject);
             const plans: GetPlanDto[] = await this.planService.getPlans(pageObject);
             return { pageObject, plans };
         } catch(err) {
