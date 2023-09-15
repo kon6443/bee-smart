@@ -12,7 +12,7 @@ async function bootstrap() {
   // Set the static file serving.
   app.use('/public', express.static(path.join(__dirname, '../..', 'public')));
 
-  // app.enableCors();
+  app.enableCors();
 
   await app.listen(3000);
 }
