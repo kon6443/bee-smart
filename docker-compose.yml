@@ -1,24 +1,25 @@
 version: '3.8'
 services:
-  bee-back:
-    container_name: bee-back 
+  back:
+    container_name: back 
     depends_on:
-      - mysqlDB
+      - mysql_db
     ports:
       - 80:3000
     build: ./
     restart: unless-stopped
-
     # combine below two together makes `-it` option when you use `docker exec -it`
     stdin_open: true # `-i`
     tty: true # `-t`
+    env_file:
+        - config/.env
 
     networks:
       - mysql_db
 
-  mysqlDB:
-    image: mysql
-    container_name: bee-back-db 
+  mysql_db:
+    # image: mysql
+    container_name: back-db 
     build: ./mysql
     restart: unless-stopped
     env_file:
