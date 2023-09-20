@@ -161,9 +161,9 @@ export class PlanService {
         return plans;
     }
 
-    async getJsonObject() {
+    async getJsonObject(carrier) {
         try {
-            const filePath = join(__dirname,'..', '..', '..', 'src', 'plan', 'eyes.json');
+            const filePath = join(__dirname,'..', '..', '..', 'src', 'plan', `${carrier}.json`);
             const data = await fsPromises.readFile(filePath, 'utf-8');
             let plans = JSON.parse(data);
             plans = this.validatePlan(plans);

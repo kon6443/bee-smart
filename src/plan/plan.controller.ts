@@ -31,11 +31,11 @@ export class PlanController {
         }
     }
 
-    @Get('admin/insertion')
-    async handlePostPlans(@Query('password') password) {
+    @Get('admin/insertion/:carrier')
+    async handlePostPlans(@Param('carrier') carrier, @Query('password') password) {
         try {
             if(password!=999999) return `Invalid request.`;
-            const plans = await this.planService.getJsonObject();
+            const plans = await this.planService.getJsonObject(carrier);
             const res = this.planService.insertPlans(plans);
             return res;
         } catch(err) {
