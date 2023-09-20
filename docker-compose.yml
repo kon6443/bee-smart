@@ -1,34 +1,19 @@
 version: '3.8'
 services:
-  back:
-    container_name: back 
-    depends_on:
-      - mysql_db
-    ports:
-      - 80:3000
-    build: ./
-    restart: unless-stopped
-    # combine below two together makes `-it` option when you use `docker exec -it`
-    stdin_open: true # `-i`
-    tty: true # `-t`
-    env_file:
-        - config/.env
-
-    networks:
-      - mysql_db
 
   mysql_db:
     # image: mysql
     container_name: back-db 
     build: ./mysql
     restart: unless-stopped
-    env_file:
-      - config/.env
+    #env_file:
+      #- config/.env
     ports:
       - 3306:3306
     command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
     environment:
-        - LC_ALL=C.UTF-8
+      LC_ALL: C.UTF-8
+      MYSQL_ALLOW_EMPTY_PASSWORD: '1'
     # command:
       #- --character-set-server=utf8mb4
       #- --collation-server=utf8mb4_unicode_ci
@@ -36,8 +21,26 @@ services:
       - bee-volume:/var/lib/mysql  # -v option
     networks:
       - mysql_db
+
+  back:
+    container_name: back 
+    depends_on:
+      - mysql_db
+    ports:
+      - 8080:3001
+    build: ./
+    restart: unless-stopped
+    # combine below two together makes `-it` option when you use `docker exec -it`
+    stdin_open: true # `-i`
+    tty: true # `-t`
+    env_file:
+        - config/.env
+    networks:
+      - mysql_db
+
 volumes:
     bee-volume:
-      external: true
+      # external: true
 networks:
     mysql_db:
+
